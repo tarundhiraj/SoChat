@@ -33,12 +33,18 @@ public class ChatWindow extends javax.swing.JFrame {
         nameLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         output = new javax.swing.JEditorPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        input = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
         disconnect = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(305, 510));
+        setResizable(false);
 
         namePanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -73,8 +79,17 @@ public class ChatWindow extends javax.swing.JFrame {
         );
 
         output.setEditable(false);
-        output.setBackground(new java.awt.Color(153, 153, 255));
+        output.setBackground(new java.awt.Color(204, 255, 204));
         jScrollPane1.setViewportView(output);
+
+        input.setColumns(20);
+        input.setLineWrap(true);
+        input.setRows(4);
+        input.setToolTipText("Enter your message here");
+        input.setDragEnabled(true);
+        jScrollPane2.setViewportView(input);
+
+        jButton1.setText("Send");
 
         menuBar.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -100,15 +115,23 @@ public class ChatWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(namePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(1, 1, 1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(namePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 74, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -154,7 +177,10 @@ public class ChatWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenuItem disconnect;
     private javax.swing.JMenu file;
+    private javax.swing.JTextArea input;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JPanel namePanel;
