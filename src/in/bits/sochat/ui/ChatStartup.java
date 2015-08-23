@@ -30,9 +30,9 @@ public class ChatStartup extends javax.swing.JFrame {
         welcomeLabel = new javax.swing.JLabel();
         inpIP = new javax.swing.JTextField();
         ipLabel = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        inpPort = new javax.swing.JTextField();
         portLabel = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        inpUser = new javax.swing.JTextField();
         userLabel = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
 
@@ -51,11 +51,11 @@ public class ChatStartup extends javax.swing.JFrame {
 
         ipLabel.setText("IP Address");
 
-        jTextField1.setText("jTextField1");
+        inpPort.setText("jTextField1");
 
         portLabel.setText("Port Number");
 
-        jTextField2.setText("jTextField2");
+        inpUser.setText("jTextField2");
 
         userLabel.setText("Desired Username");
 
@@ -73,8 +73,8 @@ public class ChatStartup extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(inpIP, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
+                    .addComponent(inpPort)
+                    .addComponent(inpUser)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ipLabel)
@@ -99,11 +99,11 @@ public class ChatStartup extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(portLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inpPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(userLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inpUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(loginButton)
                 .addContainerGap(90, Short.MAX_VALUE))
@@ -153,9 +153,9 @@ public class ChatStartup extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField inpIP;
+    private javax.swing.JTextField inpPort;
+    private javax.swing.JTextField inpUser;
     private javax.swing.JLabel ipLabel;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel portLabel;
     private javax.swing.JLabel userLabel;
