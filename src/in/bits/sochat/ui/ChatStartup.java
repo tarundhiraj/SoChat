@@ -37,12 +37,22 @@ public class ChatStartup extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SoChat");
+        setAutoRequestFocus(false);
         setPreferredSize(new java.awt.Dimension(300, 500));
+        setResizable(false);
 
-        welcomeLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        welcomeLabel.setBackground(new java.awt.Color(51, 102, 255));
+        welcomeLabel.setFont(new java.awt.Font("Nyala", 1, 24)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(0, 102, 255));
+        welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Welcome to SoChat!");
+        welcomeLabel.setEnabled(false);
+        welcomeLabel.setFocusable(false);
+        welcomeLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        welcomeLabel.setRequestFocusEnabled(false);
+        welcomeLabel.setVerifyInputWhenFocusTarget(false);
 
-        inpIP.setText("jTextField1");
         inpIP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inpIPActionPerformed(evt);
@@ -51,48 +61,42 @@ public class ChatStartup extends javax.swing.JFrame {
 
         ipLabel.setText("IP Address");
 
-        inpPort.setText("jTextField1");
-
         portLabel.setText("Port Number");
-
-        inpUser.setText("jTextField2");
 
         userLabel.setText("Desired Username");
 
+        loginButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         loginButton.setText("Login");
+        loginButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
-                .addComponent(welcomeLabel)
-                .addGap(100, 100, 100))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inpIP, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(inpPort)
-                    .addComponent(inpUser)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ipLabel)
-                            .addComponent(portLabel)
-                            .addComponent(userLabel))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addComponent(loginButton)
+                .addGap(110, 110, 110)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ipLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(welcomeLabel))
+                    .addComponent(portLabel)
+                    .addComponent(userLabel)
+                    .addComponent(inpIP)
+                    .addComponent(inpPort)
+                    .addComponent(inpUser))
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
+                .addGap(119, 119, 119)
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(27, 27, 27)
                 .addComponent(ipLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inpIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -104,12 +108,13 @@ public class ChatStartup extends javax.swing.JFrame {
                 .addComponent(userLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inpUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(loginButton)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void inpIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpIPActionPerformed
