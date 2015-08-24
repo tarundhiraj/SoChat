@@ -50,7 +50,6 @@ public class ChatWindow extends javax.swing.JFrame {
         namePanel.setBackground(new java.awt.Color(255, 255, 255));
 
         profileIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        profileIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\tarun\\Documents\\NetBeansProjects\\SoChat\\img\\chaticon.png")); // NOI18N
 
         welcomeLabel.setFont(new java.awt.Font("Letter Gothic Std", 0, 16)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
