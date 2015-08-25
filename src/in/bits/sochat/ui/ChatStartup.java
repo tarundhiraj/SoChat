@@ -68,6 +68,11 @@ public class ChatStartup extends javax.swing.JFrame {
         loginButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         loginButton.setText("Login");
         loginButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,6 +125,11 @@ public class ChatStartup extends javax.swing.JFrame {
     private void inpIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpIPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inpIPActionPerformed
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        
+
+    }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
      * @param args the command line arguments
