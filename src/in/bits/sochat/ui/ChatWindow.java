@@ -5,6 +5,10 @@
  */
 package in.bits.sochat.ui;
 
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author tarun
@@ -14,8 +18,12 @@ public class ChatWindow extends javax.swing.JFrame {
     /**
      * Creates new form WelcomeWindow
      */
+   
+    
     public ChatWindow() {
+        
         initComponents();
+        
     }
 
     /**
@@ -50,6 +58,7 @@ public class ChatWindow extends javax.swing.JFrame {
         namePanel.setBackground(new java.awt.Color(255, 255, 255));
 
         profileIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profileIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/chaticon.png"))); // NOI18N
 
         welcomeLabel.setFont(new java.awt.Font("Letter Gothic Std", 0, 16)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -97,13 +106,20 @@ public class ChatWindow extends javax.swing.JFrame {
         file.setText("File");
 
         disconnect.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK));
+        disconnect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/disconnect.png"))); // NOI18N
         disconnect.setText("Disconnect");
         disconnect.setToolTipText("Disconnect Chat");
         file.add(disconnect);
 
         Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK));
+        Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
         Exit.setText("Exit");
         Exit.setToolTipText("Exit Chat");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
         file.add(Exit);
 
         menuBar.add(file);
@@ -137,6 +153,11 @@ public class ChatWindow extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+
+    }//GEN-LAST:event_ExitActionPerformed
 
     /**
      * @param args the command line arguments

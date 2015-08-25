@@ -1,11 +1,12 @@
 package in.bits.sochat.net;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import in.bits.sochat.bean.Message;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,9 +14,9 @@ import java.net.Socket;
  */
 public class Client extends Thread{
     private Socket clientSocket;
-    private BufferedReader in;
-    private BufferedWriter out;
-
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private static Message message;
     /**
      *
      * @param name
@@ -30,9 +31,10 @@ public class Client extends Thread{
     
     private void initialize(String hostname, int port) throws IOException{
         clientSocket = new Socket(hostname, port);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+        in = new ObjectInputStream(clientSocket.getInputStream());
+        out = new ObjectOutputStream(clientSocket.getOutputStream());
         this.start();
+        System.out.println("Client Created!!");
         
     }
     
@@ -40,8 +42,31 @@ public class Client extends Thread{
     public void run() {
         super.run(); 
         while(true){
+            try {
+                message = (Message) in.readObject();
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
     }
+    
+    public void sendMessage(Message msg) throws IOException{
+        out.writeObject(msg);
+        System.out.println("Message sent!!\n"+msg);
+    }
+
+    public static Message getMessage() {
+        return message;
+    }
+
+    public static void setMessage(Message message) {
+        Client.message = message;
+    }
+    
+    
+    
        
 }

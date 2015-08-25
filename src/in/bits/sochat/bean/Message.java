@@ -1,5 +1,7 @@
 package in.bits.sochat.bean;
 
+import java.sql.Time;
+
 /**
  *
  * @author tarun
@@ -8,7 +10,17 @@ public class Message {
 
     private String user;
     private String message;
+    private Time time;
 
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    
     public Message(String user, String message) {
         this.user = user;
         this.message = message;
@@ -29,4 +41,15 @@ public class Message {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return user + ": " + message + "\n"+time;
+    }
+
+    
+    
+    
+    
+    
  }
