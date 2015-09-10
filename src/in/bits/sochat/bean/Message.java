@@ -44,7 +44,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return user + ": " + message + "\n"+time;
+        return user + ": ("+ time + ") : " + message;
     }
 
     
