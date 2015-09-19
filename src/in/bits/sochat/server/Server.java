@@ -6,6 +6,7 @@
 package in.bits.sochat.server;
 
 import in.bits.sochat.bean.Message;
+import in.bits.sochat.bean.Type;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -22,8 +23,10 @@ import java.util.logging.Logger;
 public class Server implements ServerInterface{
     private ServerSocket serverSocket;
     private HashMap<Socket,ObjectOutputStream> clients;
+    private ServerUpdateThread sut;
     public Server(int port) throws IOException{
         clients = new HashMap<>();
+        sut = new ServerUpdateThread(this);
         listen(port);
      }
        
@@ -44,7 +47,7 @@ public class Server implements ServerInterface{
     }
 
     @Override
-    public void broadcast(Message message) {
+    public synchronized void broadcast(Message message) {
         for(Map.Entry<Socket, ObjectOutputStream> entry : clients.entrySet()){
             try {
                 entry.getValue().writeObject(message);
@@ -53,11 +56,13 @@ public class Server implements ServerInterface{
             }
         }
     }
+    
 
     @Override
     public void closeConnection(Socket socket) {
         try {
             clients.get(socket).close();
+            clients.remove(socket);
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
@@ -70,5 +75,16 @@ public class Server implements ServerInterface{
         }
         
     }
-    
+
+    @Override
+    public synchronized void sendClientList() {
+        for(Map.Entry<Socket, ObjectOutputStream> entry : clients.entrySet()){
+            try {
+                entry.getValue().writeObject(clients);
+            } catch (IOException ex) {
+                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+   
 }

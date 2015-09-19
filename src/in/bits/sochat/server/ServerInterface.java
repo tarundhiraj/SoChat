@@ -16,4 +16,5 @@ public interface ServerInterface {
     public void listen(int port);
     public void broadcast(Message message);
     public void closeConnection(Socket socket);
+    public void sendClientList();
 }

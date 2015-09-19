@@ -36,7 +36,7 @@ class ServerThread extends Thread {
                 if(message.getType().getTypeOfMessage().equalsIgnoreCase("CHAT")){
                     System.out.println("Sending Message--->"+message.getMessage()+"\n"+"From ---->"+message.getUser());
                     server.broadcast(message);
-                }else if(message.getType().getTypeOfMessage().equalsIgnoreCase("IS ALIVE")){
+                }else if(message.getType().getTypeOfMessage().equalsIgnoreCase("LOGOUT")){
                     //TODO: Code for Probe packets and alive status; 
                 }
                 

@@ -68,6 +68,7 @@ public class GroupChat extends javax.swing.JFrame {
 
         groupOutput.setEditable(false);
         groupOutput.setBackground(new java.awt.Color(204, 255, 204));
+        groupOutput.setEnabled(false);
         groupOutputPane.setViewportView(groupOutput);
 
         sendButton.setText("Send");
@@ -141,6 +142,11 @@ public class GroupChat extends javax.swing.JFrame {
         groupDisconnect.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK));
         groupDisconnect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/disconnect.png"))); // NOI18N
         groupDisconnect.setText("Disconnect");
+        groupDisconnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                groupDisconnectActionPerformed(evt);
+            }
+        });
         Connection.add(groupDisconnect);
 
         groupExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK));
@@ -209,7 +215,10 @@ public class GroupChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void groupExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupExitActionPerformed
-        System.exit(0);
+       client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null));
+       ChatStartup chat = new ChatStartup();
+       chat.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_groupExitActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
@@ -225,6 +234,10 @@ public class GroupChat extends javax.swing.JFrame {
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_connectButtonActionPerformed
+
+    private void groupDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupDisconnectActionPerformed
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null));
+    }//GEN-LAST:event_groupDisconnectActionPerformed
 
     /**
      * @param args the command line arguments

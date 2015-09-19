@@ -14,7 +14,7 @@ public enum Type{
     CHAT("CHAT"),
     ACCEPT("ACCEPT"),
     PROBE("PROBE"),
-    ISALIVE("IS ALIVE");
+    LOGOUT("LOGOUT");
     Type(String typeOfMessage){
         this.typeOfMessage = typeOfMessage;
     }
