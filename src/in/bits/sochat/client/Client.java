@@ -22,6 +22,15 @@ public class Client implements ClientInterface{
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private ClientThread clientThread;
+
+    public ClientThread getClientThread() {
+        return clientThread;
+    }
+
+    public void setClientThread(ClientThread clientThread) {
+        this.clientThread = clientThread;
+    }
 
     public String getUserName() {
         return userName;
@@ -67,7 +76,7 @@ public class Client implements ClientInterface{
     private void clientHandler() throws IOException{
         in = new ObjectInputStream(socket.getInputStream());
         out = new ObjectOutputStream(socket.getOutputStream());
-        new ClientThread(this);
+        clientThread = new ClientThread(this);
     }
     
     @Override
