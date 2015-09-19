@@ -5,7 +5,9 @@
  */
 package in.bits.sochat.ui;
 
+import in.bits.sochat.bean.Message;
 import in.bits.sochat.client.Client;
+import in.bits.sochat.client.ClientThread;
 
 /**
  *
@@ -20,6 +22,9 @@ public class GroupChat extends javax.swing.JFrame {
     public GroupChat(Client client) {
         this.client = client;
         initComponents();
+        ClientThread ct;
+        ct = (ClientThread)this.client.getClientThread();
+        ct.setGroupChat(this);
     }
 
     /**
@@ -43,6 +48,7 @@ public class GroupChat extends javax.swing.JFrame {
         nameLabel = new javax.swing.JLabel();
         groupInputPane = new javax.swing.JScrollPane();
         groupInput = new javax.swing.JTextArea();
+        connectButton = new javax.swing.JButton();
         groupMenuBar = new javax.swing.JMenuBar();
         Connection = new javax.swing.JMenu();
         groupDisconnect = new javax.swing.JMenuItem();
@@ -82,7 +88,7 @@ public class GroupChat extends javax.swing.JFrame {
 
         nameLabel.setFont(new java.awt.Font("Segoe UI Semibold", 1, 11)); // NOI18N
         nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        nameLabel.setText("Tarun Dhiraj");
+        nameLabel.setText(client.getUserName());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,8 +118,22 @@ public class GroupChat extends javax.swing.JFrame {
         );
 
         groupInput.setColumns(20);
+        groupInput.setLineWrap(true);
         groupInput.setRows(5);
+        groupInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                groupInputKeyPressed(evt);
+            }
+        });
         groupInputPane.setViewportView(groupInput);
+
+        connectButton.setText("Connect");
+        connectButton.setEnabled(false);
+        connectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                connectButtonActionPerformed(evt);
+            }
+        });
 
         Connection.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Connection.setText("Connection");
@@ -152,12 +172,16 @@ public class GroupChat extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(onlineListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(onlineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(74, 74, 74)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(onlineListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(onlineLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74))))
+                        .addComponent(connectButton)
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,8 +189,10 @@ public class GroupChat extends javax.swing.JFrame {
                 .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(onlineLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(onlineListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addComponent(onlineListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(connectButton)
+                .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,16 +213,30 @@ public class GroupChat extends javax.swing.JFrame {
     }//GEN-LAST:event_groupExitActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        // TODO add your handling code here:
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText() , null));
+        groupInput.setText("");
+
     }//GEN-LAST:event_sendButtonActionPerformed
+
+    private void groupInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_groupInputKeyPressed
+        //TODO:
+    }//GEN-LAST:event_groupInputKeyPressed
+
+    private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_connectButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
     
+    public void setMessage(Message message){
+        groupOutput.setText(groupOutput.getText()+"\n"+message.getUser()+" ["+message.getTime()+"] : "+message.getMessage());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Connection;
+    private javax.swing.JButton connectButton;
     private javax.swing.JMenuItem groupDisconnect;
     private javax.swing.JMenuItem groupExit;
     private javax.swing.JTextArea groupInput;
