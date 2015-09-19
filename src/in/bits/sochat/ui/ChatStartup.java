@@ -5,6 +5,13 @@
  */
 package in.bits.sochat.ui;
 
+import in.bits.sochat.client.Client;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Deepak
@@ -127,7 +134,16 @@ public class ChatStartup extends javax.swing.JFrame {
     }//GEN-LAST:event_inpIPActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        
+        try {
+            Client client = new Client(inpUser.getText(), inpIP.getText(), Integer.parseInt(inpPort.getText()));
+            this.setVisible(false);
+            GroupChat gc = new GroupChat(client);
+            gc.setVisible(true);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ChatStartup.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error connecting to Server.", "Connection Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_loginButtonActionPerformed
 
