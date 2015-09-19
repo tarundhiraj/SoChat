@@ -32,12 +32,13 @@ public class GroupChat extends javax.swing.JFrame {
         onlineLabel = new javax.swing.JLabel();
         groupOutputPane = new javax.swing.JScrollPane();
         groupOutput = new javax.swing.JEditorPane();
-        groupInputPane = new javax.swing.JScrollPane();
         sendButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         profileIcon = new javax.swing.JLabel();
         welcomeLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
+        groupInputPane = new javax.swing.JScrollPane();
+        groupInput = new javax.swing.JTextArea();
         groupMenuBar = new javax.swing.JMenuBar();
         Connection = new javax.swing.JMenu();
         groupDisconnect = new javax.swing.JMenuItem();
@@ -55,10 +56,9 @@ public class GroupChat extends javax.swing.JFrame {
         onlineLabel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         onlineLabel.setText("Currently Online:");
 
+        groupOutput.setEditable(false);
         groupOutput.setBackground(new java.awt.Color(204, 255, 204));
         groupOutputPane.setViewportView(groupOutput);
-
-        groupInputPane.setBackground(new java.awt.Color(255, 255, 255));
 
         sendButton.setText("Send");
         sendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +107,10 @@ public class GroupChat extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        groupInput.setColumns(20);
+        groupInput.setRows(5);
+        groupInputPane.setViewportView(groupInput);
+
         Connection.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Connection.setText("Connection");
 
@@ -138,8 +142,8 @@ public class GroupChat extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(groupOutputPane)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(groupInputPane, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(groupInputPane, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,7 +158,7 @@ public class GroupChat extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(onlineLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(onlineListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,10 +169,10 @@ public class GroupChat extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(groupOutputPane, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(groupInputPane, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                    .addComponent(groupInputPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,6 +225,7 @@ public class GroupChat extends javax.swing.JFrame {
     private javax.swing.JMenu Connection;
     private javax.swing.JMenuItem groupDisconnect;
     private javax.swing.JMenuItem groupExit;
+    private javax.swing.JTextArea groupInput;
     private javax.swing.JScrollPane groupInputPane;
     private javax.swing.JMenuBar groupMenuBar;
     private javax.swing.JEditorPane groupOutput;
