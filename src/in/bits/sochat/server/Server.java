@@ -63,6 +63,7 @@ public class Server implements ServerInterface{
         }finally{
             try {
                 socket.close();
+                serverSocket.close();
             } catch (IOException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }

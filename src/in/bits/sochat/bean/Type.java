@@ -9,7 +9,7 @@ package in.bits.sochat.bean;
  *
  * @author tarun
  */
-public enum Type {
+public enum Type{
     
     CHAT("CHAT"),
     ACCEPT("ACCEPT"),

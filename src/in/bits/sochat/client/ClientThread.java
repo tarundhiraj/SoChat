@@ -7,7 +7,6 @@ package in.bits.sochat.client;
 
 import in.bits.sochat.bean.Message;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,9 +22,11 @@ class ClientThread extends Thread{
     }
     
     public void run(){
+        Message message;
         while(true){
             try {
-                Message message = (Message) client.getIn().readObject();
+                message = (Message) client.getIn().readObject();
+                System.out.println("Message received ---> "+message.getMessage()+"\nFrom user ---->"+message.getUser()+"\nTimeStamp:"+message.getTime());
             } catch (IOException ex) {
                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

@@ -1,17 +1,26 @@
 package in.bits.sochat.bean;
 
+import java.io.Serializable;
 import java.sql.Time;
 
 /**
  *
  * @author tarun
  */
-public class Message {
+public class Message implements Serializable{
     private Type type;
     private String user;
     private String message;
     private Time time;
 
+    public Message(Type type, String user, String message, Time time) {
+        this.type = type;
+        this.user = user;
+        this.message = message;
+        this.time = time;
+    }
+    
+       
     public Type getType() {
         return type;
     }
@@ -28,12 +37,6 @@ public class Message {
 
     public void setTime(Time time) {
         this.time = time;
-    }
-
-    
-    public Message(String user, String message) {
-        this.user = user;
-        this.message = message;
     }
 
     public String getUser() {
@@ -57,9 +60,4 @@ public class Message {
         return user + ": ("+ time + ") : " + message;
     }
 
-    
-    
-    
-    
-    
  }
