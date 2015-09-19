@@ -7,11 +7,21 @@ import java.sql.Time;
  * @author tarun
  */
 public class Message {
-
+    private Type type;
     private String user;
     private String message;
     private Time time;
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    
+    
     public Time getTime() {
         return time;
     }
