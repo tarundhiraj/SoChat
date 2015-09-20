@@ -8,6 +8,7 @@ package in.bits.sochat.ui;
 import in.bits.sochat.bean.Message;
 import in.bits.sochat.client.Client;
 import in.bits.sochat.client.ClientThread;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -57,7 +58,7 @@ public class GroupChat extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         onlineList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = {};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -266,4 +267,14 @@ public class GroupChat extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
+
+    public void setOnlineList(String list) {
+        String[] clientList;
+        clientList = list.split(",");
+        DefaultListModel lm = new DefaultListModel();
+        for(String s: clientList){
+            lm.addElement(s);
+        }
+        onlineList.setModel(lm);
+    }
 }
