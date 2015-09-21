@@ -6,9 +6,12 @@
 package in.bits.sochat.ui;
 
 import in.bits.sochat.bean.Message;
+import in.bits.sochat.bean.UniList;
 import in.bits.sochat.client.Client;
 import in.bits.sochat.client.ClientThread;
+import java.util.Random;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,13 +22,39 @@ public class GroupChat extends javax.swing.JFrame {
     /**
      * Creates new form GroupChat
      */
+    String fetchName;
+    UniList ul;
+    
     private final Client client;
+    
     public GroupChat(Client client) {
         this.client = client;
+        ul = new UniList();
         initComponents();
         ClientThread ct;
         ct = (ClientThread)this.client.getClientThread();
         ct.setGroupChat(this);
+        ct.setUnicastList(ul);
+    }
+    
+    public void createDialogBox(Message message){
+        
+        String displayText = message.getUser() + " would like to chat with you. Do you want to accept the request?";
+        
+        int messageType = JOptionPane.INFORMATION_MESSAGE;
+        int optionType = JOptionPane.YES_NO_OPTION;
+        int code = JOptionPane.showConfirmDialog(this, displayText, "Chat Request", optionType, messageType);
+        
+        if (code == JOptionPane.YES_OPTION) {
+            client.sendMessage(new Message(in.bits.sochat.bean.Type.ACCEPT, client.getUserName(), "has accepted your chat request.", null, message.getUser()));
+            ChatWindow cw = new ChatWindow(client, message.getUser());
+            ul.addToList(message.getUser(), cw);
+            cw.setVisible(true);
+        } else if (code == JOptionPane.NO_OPTION) {
+            client.sendMessage(new Message(in.bits.sochat.bean.Type.REJECT, client.getUserName(), "has declined your chat request.", null, message.getUser()));
+        } else if (code == JOptionPane.CLOSED_OPTION) {
+            client.sendMessage(new Message(in.bits.sochat.bean.Type.REJECT, client.getUserName(), "has declined your chat request.", null, message.getUser()));
+        }
     }
 
     /**
@@ -61,6 +90,12 @@ public class GroupChat extends javax.swing.JFrame {
             String[] strings = {};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
+        });
+        onlineList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        onlineList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                onlineListValueChanged(evt);
+            }
         });
         onlineListPane.setViewportView(onlineList);
 
@@ -216,14 +251,14 @@ public class GroupChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void groupExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupExitActionPerformed
-       client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null));
+       client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null,null));
        ChatStartup chat = new ChatStartup();
        chat.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_groupExitActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText() , null));
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText() , null, null));
         groupInput.setText("");
 
     }//GEN-LAST:event_sendButtonActionPerformed
@@ -233,12 +268,23 @@ public class GroupChat extends javax.swing.JFrame {
     }//GEN-LAST:event_groupInputKeyPressed
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-        // TODO add your handling code here:
+        String initMessage = "<<" + client.getUserName() + " has initiated a one-on-one chat.>>";
+        ChatWindow cw = new ChatWindow(client, fetchName);
+        System.out.println(fetchName);
+        ul.addToList(fetchName, cw);
+        cw.setVisible(true);
+        cw.setTextOutput(initMessage);
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.REQUEST,client.getUserName(),initMessage, null, fetchName));
     }//GEN-LAST:event_connectButtonActionPerformed
 
     private void groupDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupDisconnectActionPerformed
-        client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null));
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null, null));
     }//GEN-LAST:event_groupDisconnectActionPerformed
+
+    private void onlineListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_onlineListValueChanged
+        fetchName = (String) onlineList.getSelectedValue();
+        connectButton.setEnabled(true);
+    }//GEN-LAST:event_onlineListValueChanged
 
     /**
      * @param args the command line arguments

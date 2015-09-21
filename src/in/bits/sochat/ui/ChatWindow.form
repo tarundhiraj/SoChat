@@ -16,7 +16,7 @@
                 <EtchetBorder/>
               </Border>
             </Property>
-            <Property name="text" type="java.lang.String" value="File"/>
+            <Property name="text" type="java.lang.String" value="Connection"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="disconnect">
@@ -30,6 +30,9 @@
                 <Property name="text" type="java.lang.String" value="Disconnect"/>
                 <Property name="toolTipText" type="java.lang.String" value="Disconnect Chat"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="disconnectActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Exit">
               <Properties>
@@ -201,6 +204,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Send"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

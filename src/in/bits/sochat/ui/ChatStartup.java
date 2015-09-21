@@ -139,6 +139,7 @@ public class ChatStartup extends javax.swing.JFrame {
             this.setVisible(false);
             GroupChat gc = new GroupChat(client);
             gc.setVisible(true);
+            this.dispose();
             
         } catch (IOException ex) {
             Logger.getLogger(ChatStartup.class.getName()).log(Level.SEVERE, null, ex);

@@ -12,8 +12,11 @@ package in.bits.sochat.bean;
 public enum Type{
     
     CHAT("CHAT"),
+    UNICAST("UNICAST"),
+    REQUEST("REQUEST"),
     ACCEPT("ACCEPT"),
-    PROBE("PROBE"),
+    REJECT("REJECT"),
+    DISCONNECT("DISCONNECT"),
     LOGOUT("LOGOUT"),
     HELLO("HELLO"),
     LIST("LIST");
