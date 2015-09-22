@@ -180,8 +180,9 @@ public class ChatWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        client.sendMessage(new Message(in.bits.sochat.bean.Type.UNICAST,client.getUserName(),input.getText() , new Time(System.currentTimeMillis()), receiver));
-        setTextOutput(client.getUserName()+": "+input.getText());
+        Time t = new Time(System.currentTimeMillis());
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.UNICAST,client.getUserName(),input.getText() , t, receiver));
+        setTextOutput(client.getUserName()+": ["+t+"]: "+input.getText());
         input.setText("");
     }//GEN-LAST:event_sendButtonActionPerformed
 
