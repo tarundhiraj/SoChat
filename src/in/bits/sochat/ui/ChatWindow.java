@@ -13,6 +13,7 @@ import java.awt.event.WindowListener;
 import java.sql.Time;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ChatWindow extends javax.swing.JFrame {
         this.client = client;
         this.receiver = receiver;
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         nameLabel.setText(receiver);
     }
 
