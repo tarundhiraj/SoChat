@@ -11,14 +11,12 @@ import in.bits.sochat.client.Client;
 import in.bits.sochat.client.ClientThread;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-/**
+/**This class creates a new GroupChat window.
  *
- * @author Deepak
- */
+ **/
 public class GroupChat extends javax.swing.JFrame {
 
     /**
@@ -41,6 +39,12 @@ public class GroupChat extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Creates the dialog box that flashes in front the client to accept or 
+     * reject the incoming chat request
+     * @param message the message received from the server.
+     * Server sends a message to connect to a specified client by the other user.
+     */
     public void createDialogBox(Message message){
         
         String displayText = message.getUser() + " would like to chat with you. Do you want to accept the request?";
@@ -61,6 +65,13 @@ public class GroupChat extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * It displays a dialog when the username specified is not unique.
+     * @param message the message from the Server
+     * Server sends a message that a username with the specified username 
+     * already exists.
+     * @see Message
+     */
     public void showRejectionDialog(Message message){
         int messageType = JOptionPane.INFORMATION_MESSAGE;
         int optionType = JOptionPane.OK_CANCEL_OPTION;
@@ -272,7 +283,12 @@ public class GroupChat extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * This function is called when the user clicks on the <strong>exit</strong> 
+ * menuitem under the connection menu
+ * @param evt Action
+ * @see ActionEvent
+ */
     private void groupExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupExitActionPerformed
        client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null,null));
        ChatStartup chat = new ChatStartup();
@@ -281,12 +297,21 @@ public class GroupChat extends javax.swing.JFrame {
        System.exit(0);
     }//GEN-LAST:event_groupExitActionPerformed
 
+    /**
+     * this method is invoked each time a user inputs some text in the input 
+     * textfield and clicks on the send Button
+     * @param evt ActionEvent
+     * @see ActionEvent
+     */
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
         client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText() , null, null));
         groupInput.setText("");
 
     }//GEN-LAST:event_sendButtonActionPerformed
 
+    /**This method populates the <strong>Currently Online</strong> list.
+     *
+     */
     private void groupInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_groupInputKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText().trim() , null, null));
@@ -295,7 +320,11 @@ public class GroupChat extends javax.swing.JFrame {
         }
     
     }//GEN-LAST:event_groupInputKeyPressed
-
+/**
+ * requests for a connection to the client with the selected client under the 
+ * <strong>Currently Online</strong> list
+ * @param evt 
+ */
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         String initMessage = "<<" + client.getUserName() + " has initiated a one-on-one chat.>>";
         ChatWindow cw = new ChatWindow(client, fetchName);
@@ -306,16 +335,27 @@ public class GroupChat extends javax.swing.JFrame {
         client.sendMessage(new Message(in.bits.sochat.bean.Type.REQUEST,client.getUserName(),initMessage, null, fetchName));
     }//GEN-LAST:event_connectButtonActionPerformed
 
+    /**
+     * disconnects a user by sending a message of type LOGOUT.
+     * After successful LOGOUT, the user is no longer visible as online to other
+     * users.
+     */
     private void groupDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupDisconnectActionPerformed
         client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null, null));
         groupOutput.setText(groupOutput.getText() + "\n<<<Chat Disconnected!!!>>>");
     }//GEN-LAST:event_groupDisconnectActionPerformed
 
+    /**
+     * Enables the connect button whenver a user is selected. from the user list. 
+     */
     private void onlineListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_onlineListValueChanged
         fetchName = (String) onlineList.getSelectedValue();
         connectButton.setEnabled(true);
     }//GEN-LAST:event_onlineListValueChanged
-
+    
+    /**
+     * sends message to the server whenever user enters his/her chat and hits Enter.
+     */
     private void sendButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sendButtonKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText() , null, null));
@@ -324,9 +364,9 @@ public class GroupChat extends javax.swing.JFrame {
     }//GEN-LAST:event_sendButtonKeyPressed
 
     /**
-     * @param args the command line arguments
+     * sets the message received from the server on the output text field
+     * @param message 
      */
-    
     public void setMessage(Message message){
         groupOutput.setText(groupOutput.getText()+"\n"+message.getUser()+" ["+message.getTime()+"] : "+message.getMessage());
     }
@@ -353,6 +393,10 @@ public class GroupChat extends javax.swing.JFrame {
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * populates the online users list after it has been received from the server.
+     * @param list 
+     */
     public void setOnlineList(String list) {
         String[] clientList;
         clientList = list.split(",");

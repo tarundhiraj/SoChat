@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package in.bits.sochat.client;
 
 import in.bits.sochat.bean.Message;
@@ -13,9 +8,11 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author tarun
+/**<h1>Client</h1>
+ * <p>The implementation of the Client Interface which establishes connection with
+ * the Server on listening port. On successful establishment of connection, it 
+ * creates individual<strong> Client Thread </strong>
+ * </p>
  */
 public class Client implements ClientInterface{
     private String userName;
@@ -64,6 +61,12 @@ public class Client implements ClientInterface{
         this.in = in;
     }
     
+    /**Constructor to create a client with specified name
+     * @param userName : Username or Nickname
+     * @param hostname: IP Address of the Server
+     * @param port: Port of the server
+     * @throws IOException 
+     */
     
     
     public Client(String userName,String hostname, int port) throws IOException{
@@ -73,11 +76,24 @@ public class Client implements ClientInterface{
         clientHandler();
     }
     
+    /**This method creates a new ClientThread to handle individual client 
+     * connections
+     * @throws IOException
+     * @see ClientThread
+     */
+    
+    
     private void clientHandler() throws IOException{
         in = new ObjectInputStream(socket.getInputStream());
         out = new ObjectOutputStream(socket.getOutputStream());
         clientThread = new ClientThread(this);
     }
+    
+    /**
+     * This function is used to send message to the server using the OutputStream
+     * @param message: Message from the GUI
+     * @see ObjectOutputStream
+     */
     
     @Override
     public void sendMessage(Message message) {

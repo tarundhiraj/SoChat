@@ -5,7 +5,7 @@ import java.sql.Time;
 
 /**
  *
- * @author tarun
+ * @author Tarun
  */
 public class Message implements Serializable{
     

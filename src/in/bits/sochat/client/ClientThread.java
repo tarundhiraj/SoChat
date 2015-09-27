@@ -8,19 +8,15 @@ package in.bits.sochat.client;
 import in.bits.sochat.bean.Message;
 import in.bits.sochat.bean.Type;
 import in.bits.sochat.bean.UniList;
-import in.bits.sochat.ui.ChatStartup;
-import in.bits.sochat.ui.ChatWindow;
 import in.bits.sochat.ui.GroupChat;
 import java.io.IOException;
-import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
+/**<strong>ClientThread</strong> handles the connection of one client connection.
+ * Client Thread is responsible for all the communication between Server and the 
+ * Client that it is handling.
  *
- * @author tarun
  */
 public class ClientThread implements Runnable{
     private Client client;
@@ -29,12 +25,17 @@ public class ClientThread implements Runnable{
     private Thread thread;
     private UniList unicastList;
     
+    /**
+     * Creates a client thread for a particular client
+     * @param client : Client that has established successful connection
+     */
     public ClientThread(Client client) {
         this.client = client;
         client.sendMessage(new Message(Type.HELLO, client.getUserName(), null, null, null));
         thread = new Thread(this);
         thread.start();
     }
+    
     
     public void setGroupChat(GroupChat groupChat){
         this.groupChat = groupChat;
@@ -48,6 +49,13 @@ public class ClientThread implements Runnable{
         return message;
     }
     
+    
+    /**
+     * Handles the messages as they are received from the server. ClientThread 
+     * receives and processes the messages depending upon the type of the message.
+     * @see Message
+     * @see Type
+     */
     public void run(){
         Message message = null;
         while(true){

@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package in.bits.sochat.ui;
 
 import in.bits.sochat.client.Client;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-/**
+/** This class creates the initial Chat Startup Window.
  *
- * @author Deepak
  */
 public class ChatStartup extends javax.swing.JFrame {
 
@@ -149,8 +142,10 @@ public class ChatStartup extends javax.swing.JFrame {
 
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
+    /**The client app starts from here
+     * The look and feel of the window is also set here.
+     * The look and feel being used is JTatoo, which is a third party LnF
+     * 
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

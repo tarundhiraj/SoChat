@@ -1,25 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package in.bits.sochat.ui;
 
 import in.bits.sochat.bean.Message;
 import in.bits.sochat.client.Client;
-import in.bits.sochat.client.ClientThread;
-import java.awt.Image;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.sql.Time;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-/**
- *
- * @author tarun
+/**This form creates a window of one-to-one chatting a.k.a Peer to Peer Communication
+ *@see JFrame
  */
 public class ChatWindow extends javax.swing.JFrame {
 
@@ -30,6 +17,12 @@ public class ChatWindow extends javax.swing.JFrame {
     private final Client client;
     private final String receiver;
     
+    /**
+     * This method sends a DISCONNECT message to the receiver when user closes
+     * the Chat Window.
+     * @see Type
+     */
+    
     public void exitOnClose(){
         client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
         this.setVisible(false);
@@ -37,13 +30,18 @@ public class ChatWindow extends javax.swing.JFrame {
         System.exit(0);
     }
     
+    /**
+     * Creates a ChatWindow for one-to-one communication between a sender and
+     * receiver
+     * @param client: the sender
+     * @param receiver : the receiver
+     */
     public ChatWindow(Client client, String receiver) {
         this.client = client;
         this.receiver = receiver;
         initComponents();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        nameLabel.setText("Chatting with:\n"+receiver);
-        
+        nameLabel.setText("Chatting with:\n"+receiver); 
     }
 
     /**
@@ -184,12 +182,27 @@ public class ChatWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This function sends a LOGOUT message to the client on the receiving end.
+     * And then disposes the Chat Window
+     * @param evt : Event
+     * @see ActionEvent
+     */
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT,client.getUserName(),"" , null, receiver));
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_ExitActionPerformed
 
+    /**
+     * This method is invoked each time the send button is clicked.
+     * This message takes message from the input text field and creates
+     * a message of type <strong>CHAT</strong>
+     * @param evt Event Object
+     * @see ActionEvent
+     * @see Message
+     * @see Type
+     */
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
         Time t = new Time(System.currentTimeMillis());
         client.sendMessage(new Message(in.bits.sochat.bean.Type.UNICAST,client.getUserName(),input.getText() , t, receiver));
@@ -197,6 +210,13 @@ public class ChatWindow extends javax.swing.JFrame {
         input.setText("");
     }//GEN-LAST:event_sendButtonActionPerformed
 
+    /**
+     * This function is called when user disconnects the chat by clicking on
+     * <strong>disconnect</strong> menuitem of the <strong>connection</strong>
+     * menu.
+     * @param evt ActionEvent object
+     * @see ActionEvent
+     */
     private void disconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectActionPerformed
         client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
         output.setText(output.getText() + "\n<<<Chat Disconnected from "+receiver+" >>>");
@@ -220,11 +240,19 @@ public class ChatWindow extends javax.swing.JFrame {
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
     
-    
+    /**
+     * Sets the message received from the server as text to the output.
+     * @param message The message from the server
+     * @see Message
+     */
     public void setTextOutput(String message) {
         output.setText(output.getText()+"\n"+message);
     }
     
+    /**This function disables the input fiend so that the client can't not input text 
+     * after the connection has been dropped.
+     * 
+     */
     public void disableInput(){
         input.setEnabled(false);
     }
