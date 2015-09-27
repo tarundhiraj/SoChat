@@ -30,25 +30,11 @@ public class ChatWindow extends javax.swing.JFrame {
     private final Client client;
     private final String receiver;
     
-    public void exitOnClose(){
-        client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
-        this.setVisible(false);
-        this.dispose();
-        System.exit(0);
-    }
-    
     public ChatWindow(Client client, String receiver) {
         this.client = client;
         this.receiver = receiver;
         initComponents();
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent we) { 
-                exitOnClose();
-            }
-        });
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         nameLabel.setText(receiver);
     }
 
