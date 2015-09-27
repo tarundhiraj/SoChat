@@ -6,13 +6,13 @@ import java.sql.Time;
 /**
      * 
      * Message bean created to have a template for messages being exchanged between the server and clients.
-     * The properties of message have been implemented as variables.<br/>
-     * The variables are:<br/>
-     * 1. type: denotes the type of the message being exchanged.<br/>
-     * 2. user: username of the sender of the message.<br/>
-     * 3. message: contains the body of the message.<br/>
-     * 4. time: holds the timestamp of the message, depending on situation it can be time sent or time received.<br/>
-     * 5. receiver: (used mostly for unicasting) hold the username of the intended receiver of the message as specified by the sender.<br/>
+     * The properties of message have been implemented as variables.<br>
+     * The variables are:<br>
+     * 1. type: denotes the type of the message being exchanged.<br>
+     * 2. user: username of the sender of the message.<br>
+     * 3. message: contains the body of the message.<br>
+     * 4. time: holds the timestamp of the message, depending on situation it can be time sent or time received.<br>
+     * 5. receiver: (used mostly for unicasting) hold the username of the intended receiver of the message as specified by the sender.<br>
     */
 public class Message implements Serializable{
     

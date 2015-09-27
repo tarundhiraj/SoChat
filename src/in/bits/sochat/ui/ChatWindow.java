@@ -221,6 +221,7 @@ public class ChatWindow extends javax.swing.JFrame {
         client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
         output.setText(output.getText() + "\n<<<Chat Disconnected from "+receiver+" >>>");
         input.setEnabled(false);
+        sendButton.setEnabled(false);
     }//GEN-LAST:event_disconnectActionPerformed
 
 
@@ -255,5 +256,6 @@ public class ChatWindow extends javax.swing.JFrame {
      */
     public void disableInput(){
         input.setEnabled(false);
+        sendButton.setEnabled(false);
     }
 }
