@@ -9,6 +9,8 @@ import in.bits.sochat.bean.Message;
 import in.bits.sochat.client.Client;
 import in.bits.sochat.client.ClientThread;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Time;
 import javax.swing.Icon;
@@ -28,11 +30,25 @@ public class ChatWindow extends javax.swing.JFrame {
     private final Client client;
     private final String receiver;
     
+    public void exitOnClose(){
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
+        this.setVisible(false);
+        this.dispose();
+        System.exit(0);
+    }
+    
     public ChatWindow(Client client, String receiver) {
         this.client = client;
         this.receiver = receiver;
         initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) { 
+                exitOnClose();
+            }
+        });
         nameLabel.setText(receiver);
     }
 
