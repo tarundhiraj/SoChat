@@ -8,6 +8,7 @@ package in.bits.sochat.client;
 import in.bits.sochat.bean.Message;
 import in.bits.sochat.bean.Type;
 import in.bits.sochat.bean.UniList;
+import in.bits.sochat.ui.ChatStartup;
 import in.bits.sochat.ui.ChatWindow;
 import in.bits.sochat.ui.GroupChat;
 import java.io.IOException;
@@ -61,7 +62,17 @@ public class ClientThread implements Runnable{
                 }else if(message.getType().getTypeOfMessage().equalsIgnoreCase("LIST")){
                     
                     System.out.println("Client List Received!!"+message.getMessage());
-                    groupChat.setOnlineList(message.getMessage());
+                    String list = "";
+                    String listFromServer = message.getMessage();
+                    String lists[] = listFromServer.split(",");
+                    for(String name : lists){
+                        if(name.equalsIgnoreCase(client.getUserName())){
+                            continue;
+                        }else{
+                            list+=name+",";
+                        }
+                    }
+                    groupChat.setOnlineList(list);
                     
                 }else if(message.getType().getTypeOfMessage().equalsIgnoreCase("REQUEST")){
                     
@@ -82,6 +93,12 @@ public class ClientThread implements Runnable{
                     
                     unicastList.getCWRef(message.getUser()).setTextOutput(message.getUser()+": ["+message.getTime()+"]: "+message.getMessage());
                     
+                }else if(message.getType().getTypeOfMessage().equalsIgnoreCase("DISCONNECT")){
+                    unicastList.getCWRef(message.getUser()).setTextOutput(message.getMessage());
+                    unicastList.getCWRef(message.getUser()).disableInput();
+                    unicastList.removeFromList(message.getUser());
+                }else if(message.getType().getTypeOfMessage().equalsIgnoreCase("CONFLICT")){
+                    groupChat.showRejectionDialog(message);
                 }
                 
             } catch (IOException ex) {

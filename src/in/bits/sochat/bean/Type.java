@@ -19,7 +19,8 @@ public enum Type{
     DISCONNECT("DISCONNECT"),
     LOGOUT("LOGOUT"),
     HELLO("HELLO"),
-    LIST("LIST");
+    LIST("LIST"),
+    CONFLICT("CONFLICT");
     Type(String typeOfMessage){
         this.typeOfMessage = typeOfMessage;
     }

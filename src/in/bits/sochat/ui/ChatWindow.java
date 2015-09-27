@@ -30,12 +30,20 @@ public class ChatWindow extends javax.swing.JFrame {
     private final Client client;
     private final String receiver;
     
+    public void exitOnClose(){
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
+        this.setVisible(false);
+        this.dispose();
+        System.exit(0);
+    }
+    
     public ChatWindow(Client client, String receiver) {
         this.client = client;
         this.receiver = receiver;
         initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        nameLabel.setText(receiver);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        nameLabel.setText("Chatting with:\n"+receiver);
+        
     }
 
     /**
@@ -100,7 +108,7 @@ public class ChatWindow extends javax.swing.JFrame {
         );
 
         output.setEditable(false);
-        output.setBackground(new java.awt.Color(204, 255, 204));
+        output.setBackground(new java.awt.Color(204, 241, 248));
         outputScrollPane.setViewportView(output);
 
         input.setColumns(20);
@@ -177,10 +185,9 @@ public class ChatWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT,client.getUserName(),"" , null, receiver));
         this.setVisible(false);
         this.dispose();
-        System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
@@ -192,8 +199,8 @@ public class ChatWindow extends javax.swing.JFrame {
 
     private void disconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectActionPerformed
         client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
-        this.setVisible(false);
-        this.dispose();
+        output.setText(output.getText() + "\n<<<Chat Disconnected from "+receiver+" >>>");
+        input.setEnabled(false);
     }//GEN-LAST:event_disconnectActionPerformed
 
 
@@ -218,4 +225,7 @@ public class ChatWindow extends javax.swing.JFrame {
         output.setText(output.getText()+"\n"+message);
     }
     
+    public void disableInput(){
+        input.setEnabled(false);
+    }
 }

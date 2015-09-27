@@ -9,6 +9,8 @@ import in.bits.sochat.bean.Message;
 import in.bits.sochat.bean.UniList;
 import in.bits.sochat.client.Client;
 import in.bits.sochat.client.ClientThread;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -35,6 +37,8 @@ public class GroupChat extends javax.swing.JFrame {
         ct = (ClientThread)this.client.getClientThread();
         ct.setGroupChat(this);
         ct.setUnicastList(ul);
+        groupOutput.setDisabledTextColor(Color.BLACK);
+        
     }
     
     public void createDialogBox(Message message){
@@ -56,6 +60,20 @@ public class GroupChat extends javax.swing.JFrame {
             client.sendMessage(new Message(in.bits.sochat.bean.Type.REJECT, client.getUserName(), "has declined your chat request.", null, message.getUser()));
         }
     }
+    
+    public void showRejectionDialog(Message message){
+        int messageType = JOptionPane.INFORMATION_MESSAGE;
+        int optionType = JOptionPane.OK_CANCEL_OPTION;
+        int code = JOptionPane.showConfirmDialog(this,message.getMessage(), "Problem with Username", optionType, messageType);
+        
+        if (code == JOptionPane.OK_OPTION || code == JOptionPane.CANCEL_OPTION || code == JOptionPane.CLOSED_OPTION) {
+            new ChatStartup().setVisible(true);
+            
+            this.dispose();
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,7 +121,7 @@ public class GroupChat extends javax.swing.JFrame {
         onlineLabel.setText("Currently Online:");
 
         groupOutput.setEditable(false);
-        groupOutput.setBackground(new java.awt.Color(204, 255, 204));
+        groupOutput.setBackground(new java.awt.Color(204, 241, 248));
         groupOutput.setEnabled(false);
         groupOutputPane.setViewportView(groupOutput);
 
@@ -111,6 +129,11 @@ public class GroupChat extends javax.swing.JFrame {
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendButtonActionPerformed(evt);
+            }
+        });
+        sendButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sendButtonKeyPressed(evt);
             }
         });
 
@@ -255,6 +278,7 @@ public class GroupChat extends javax.swing.JFrame {
        ChatStartup chat = new ChatStartup();
        chat.setVisible(true);
        this.dispose();
+       System.exit(0);
     }//GEN-LAST:event_groupExitActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
@@ -264,7 +288,12 @@ public class GroupChat extends javax.swing.JFrame {
     }//GEN-LAST:event_sendButtonActionPerformed
 
     private void groupInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_groupInputKeyPressed
-        //TODO:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText().trim() , null, null));
+            groupInput.requestFocus();
+            groupInput.setText("");
+        }
+    
     }//GEN-LAST:event_groupInputKeyPressed
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
@@ -279,12 +308,20 @@ public class GroupChat extends javax.swing.JFrame {
 
     private void groupDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupDisconnectActionPerformed
         client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT, null, null, null, null));
+        groupOutput.setText(groupOutput.getText() + "\n<<<Chat Disconnected!!!>>>");
     }//GEN-LAST:event_groupDisconnectActionPerformed
 
     private void onlineListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_onlineListValueChanged
         fetchName = (String) onlineList.getSelectedValue();
         connectButton.setEnabled(true);
     }//GEN-LAST:event_onlineListValueChanged
+
+    private void sendButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sendButtonKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            client.sendMessage(new Message(in.bits.sochat.bean.Type.CHAT,client.getUserName(),groupInput.getText() , null, null));
+             groupInput.setText("");
+        }
+    }//GEN-LAST:event_sendButtonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -293,6 +330,8 @@ public class GroupChat extends javax.swing.JFrame {
     public void setMessage(Message message){
         groupOutput.setText(groupOutput.getText()+"\n"+message.getUser()+" ["+message.getTime()+"] : "+message.getMessage());
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Connection;
