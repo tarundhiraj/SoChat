@@ -2,6 +2,7 @@ package in.bits.sochat.ui;
 
 import in.bits.sochat.bean.Message;
 import in.bits.sochat.client.Client;
+import java.awt.event.KeyEvent;
 import java.sql.Time;
 import javax.swing.JFrame;
 
@@ -26,7 +27,6 @@ public class ChatWindow extends javax.swing.JFrame {
     public void exitOnClose(){
         client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
         this.setVisible(false);
-        this.dispose();
         System.exit(0);
     }
     
@@ -114,6 +114,11 @@ public class ChatWindow extends javax.swing.JFrame {
         input.setRows(4);
         input.setToolTipText("Enter your message here");
         input.setDragEnabled(true);
+        input.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputKeyPressed(evt);
+            }
+        });
         inputScrollPane.setViewportView(input);
 
         sendButton.setText("Send");
@@ -189,9 +194,8 @@ public class ChatWindow extends javax.swing.JFrame {
      * @see ActionEvent
      */
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        client.sendMessage(new Message(in.bits.sochat.bean.Type.LOGOUT,client.getUserName(),"" , null, receiver));
+        client.sendMessage(new Message(in.bits.sochat.bean.Type.DISCONNECT,client.getUserName(),"" , null, receiver));
         this.setVisible(false);
-        this.dispose();
     }//GEN-LAST:event_ExitActionPerformed
 
     /**
@@ -223,6 +227,16 @@ public class ChatWindow extends javax.swing.JFrame {
         input.setEnabled(false);
         sendButton.setEnabled(false);
     }//GEN-LAST:event_disconnectActionPerformed
+
+    private void inputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            Time t = new Time(System.currentTimeMillis());
+            client.sendMessage(new Message(in.bits.sochat.bean.Type.UNICAST,client.getUserName(),input.getText().trim() , t, receiver));
+            setTextOutput(client.getUserName()+": ["+t+"]: "+input.getText());
+            input.setText("");
+        }
+    }//GEN-LAST:event_inputKeyPressed
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
